@@ -1,4 +1,4 @@
-package com.example.deviceInfo.data.internal
+package com.example.deviceInfo.data.repository
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -7,6 +7,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import com.example.deviceInfo.data.models.SystemInfo
 import com.example.deviceInfo.utils.DeviceInfoResult
+import com.example.deviceInfo.utils.DeviceInfoUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -21,7 +22,7 @@ class SystemInfoCollector(private val context: Context): BaseDeviceInfoCollector
     override fun getDescription(): String = "System configuration and build information"
 
     override suspend fun collect(): DeviceInfoResult<SystemInfo> = withContext(Dispatchers.IO) {
-        safeExecute {
+        DeviceInfoUtils.safeExecute {
             SystemInfo(
                 androidVersion = getAndroidVersion(),
                 apiLevel = Build.VERSION.SDK_INT,

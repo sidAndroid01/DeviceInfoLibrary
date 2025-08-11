@@ -1,4 +1,4 @@
-package com.example.deviceInfo.data.internal
+package com.example.deviceInfo.data.repository
 
 import android.content.Context
 import android.content.pm.PackageManager
@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat
 import com.example.deviceInfo.data.models.base.DeviceInfo
 import com.example.deviceInfo.utils.DeviceInfoResult
 
+// new info collectors can be added over here
 interface DeviceInfoCollector<T : DeviceInfo> {
     suspend fun collect(): DeviceInfoResult<T>
 
@@ -21,17 +22,8 @@ interface DeviceInfoCollector<T : DeviceInfo> {
     fun getDescription(): String
 }
 
+// abstract to define more generic methods
 abstract class BaseDeviceInfoCollector<T : DeviceInfo> : DeviceInfoCollector<T> {
-    protected fun safeExecute(block: () -> T): DeviceInfoResult<T> {
-        return try {
-            DeviceInfoResult.Success(block())
-        } catch (securityException: SecurityException) {
-            DeviceInfoResult.PermissionDenied
-        } catch (exception: Exception) {
-            DeviceInfoResult.Error(exception, "Failed to collect ${getDescription()}")
-        }
-    }
-
     protected fun checkApiLevel(): Boolean {
         return Build.VERSION.SDK_INT >= getMinimumApiLevel()
     }

@@ -1,4 +1,4 @@
-package com.example.deviceInfo.data.internal
+package com.example.deviceInfo.data.repository
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -13,6 +13,7 @@ import com.example.deviceInfo.data.models.CellularDetails
 import com.example.deviceInfo.data.models.DeviceNetworkInfo
 import com.example.deviceInfo.data.models.WiFiDetails
 import com.example.deviceInfo.utils.DeviceInfoResult
+import com.example.deviceInfo.utils.DeviceInfoUtils
 import com.example.deviceInfo.utils.NetworkPermissionHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -40,7 +41,7 @@ class NetworkInfoCollector(private val context: Context) : BaseDeviceInfoCollect
         Manifest.permission.ACCESS_WIFI_STATE
     ])
     override suspend fun collect(): DeviceInfoResult<DeviceNetworkInfo> = withContext(Dispatchers.IO) {
-        safeExecute {
+        DeviceInfoUtils.safeExecute {
             DeviceNetworkInfo(
                 connectionType = if (permissionHelper.canCollectNetworkStatus()) {
                     getConnectionType()

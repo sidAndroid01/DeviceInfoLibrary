@@ -1,4 +1,4 @@
-package com.example.deviceInfo.data.internal
+package com.example.deviceInfo.data.repository
 
 import android.app.ActivityManager
 import android.content.Context
@@ -10,6 +10,7 @@ import android.os.StatFs
 import com.example.deviceInfo.data.models.HardwareInfo
 import com.example.deviceInfo.data.models.SensorInfo
 import com.example.deviceInfo.utils.DeviceInfoResult
+import com.example.deviceInfo.utils.DeviceInfoUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -22,7 +23,7 @@ class HardwareDeviceInfoCollector(private val context: Context): BaseDeviceInfoC
     override fun getDescription(): String = "Hardware specs"
 
     override suspend fun collect(): DeviceInfoResult<HardwareInfo> = withContext(Dispatchers.IO) {
-        safeExecute {
+        DeviceInfoUtils.safeExecute {
             HardwareInfo(
                 manufacturer = Build.MANUFACTURER,
                 model = Build.MODEL,
