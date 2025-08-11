@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.SystemClock
 import android.provider.Settings
+import com.example.deviceInfo.data.models.HardwareInfo
 import com.example.deviceInfo.data.models.SystemInfo
 import com.example.deviceInfo.utils.DeviceInfoResult
 import com.example.deviceInfo.utils.DeviceInfoUtils
@@ -21,8 +22,8 @@ class SystemInfoCollector(private val context: Context): BaseDeviceInfoCollector
 
     override fun getDescription(): String = "System configuration and build information"
 
-    override suspend fun collect(): DeviceInfoResult<SystemInfo> = withContext(Dispatchers.IO) {
-        DeviceInfoUtils.safeExecute {
+    override suspend fun collect(): DeviceInfoResult<SystemInfo> {
+        return safeExecute {
             SystemInfo(
                 androidVersion = getAndroidVersion(),
                 apiLevel = Build.VERSION.SDK_INT,

@@ -22,8 +22,8 @@ class HardwareDeviceInfoCollector(private val context: Context): BaseDeviceInfoC
 
     override fun getDescription(): String = "Hardware specs"
 
-    override suspend fun collect(): DeviceInfoResult<HardwareInfo> = withContext(Dispatchers.IO) {
-        DeviceInfoUtils.safeExecute {
+    override suspend fun collect(): DeviceInfoResult<HardwareInfo> {
+        return safeExecute {
             HardwareInfo(
                 manufacturer = Build.MANUFACTURER,
                 model = Build.MODEL,

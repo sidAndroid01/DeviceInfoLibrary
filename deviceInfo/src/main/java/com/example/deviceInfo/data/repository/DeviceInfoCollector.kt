@@ -24,6 +24,15 @@ interface DeviceInfoCollector<T : DeviceInfo> {
 
 // abstract to define more generic methods
 abstract class BaseDeviceInfoCollector<T : DeviceInfo> : DeviceInfoCollector<T> {
+    protected fun <T : DeviceInfo> safeExecute(block: () -> T): DeviceInfoResult<T> {
+        return try {
+            DeviceInfoResult.Success(block())
+        } catch (securityException: SecurityException) {
+            DeviceInfoResult.PermissionDenied
+        } catch (exception: Exception) {
+            DeviceInfoResult.Error(exception, "Failed")
+        }
+    }
     protected fun checkApiLevel(): Boolean {
         return Build.VERSION.SDK_INT >= getMinimumApiLevel()
     }

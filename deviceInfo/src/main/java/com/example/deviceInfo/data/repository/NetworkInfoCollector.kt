@@ -8,9 +8,11 @@ import android.net.NetworkCapabilities
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.telephony.TelephonyManager
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import com.example.deviceInfo.data.models.CellularDetails
 import com.example.deviceInfo.data.models.DeviceNetworkInfo
+import com.example.deviceInfo.data.models.SystemInfo
 import com.example.deviceInfo.data.models.WiFiDetails
 import com.example.deviceInfo.utils.DeviceInfoResult
 import com.example.deviceInfo.utils.DeviceInfoUtils
@@ -40,17 +42,20 @@ class NetworkInfoCollector(private val context: Context) : BaseDeviceInfoCollect
         Manifest.permission.READ_PHONE_STATE,
         Manifest.permission.ACCESS_WIFI_STATE
     ])
-    override suspend fun collect(): DeviceInfoResult<DeviceNetworkInfo> = withContext(Dispatchers.IO) {
-        DeviceInfoUtils.safeExecute {
+    override suspend fun collect(): DeviceInfoResult<DeviceNetworkInfo> {
+        return safeExecute {
             DeviceNetworkInfo(
                 connectionType = if (permissionHelper.canCollectNetworkStatus()) {
                     getConnectionType()
                 } else "Permission Required",
 
                 isConnected = if (permissionHelper.canCollectNetworkStatus()) {
+                    Log.d("###", "collect: coming to can collect")
                     isConnected()
-                } else false,
-
+                } else {
+                    Log.d("###", "collect: coming to else of can collect")
+                    false
+                },
                 wifiInfo = if (permissionHelper.canCollectWifiInfo()) {
                     getWifiInfo()
                 } else null,
