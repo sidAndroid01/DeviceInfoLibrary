@@ -1,4 +1,4 @@
-package com.example.deviceInfo.internal
+package com.example.deviceInfo.data.internal
 
 import android.content.Context
 import android.content.pm.PackageManager
