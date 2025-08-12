@@ -312,7 +312,7 @@ Push to the branch (git push origin feature/AmazingFeature)
 Open a Pull Request
 
 ### Contact me -
-[LinkedIn]([url](https://www.linkedin.com/in/siddhant-mishra-95a91820a/))
+[LinkedIn](https://www.linkedin.com/in/siddhant-mishra-95a91820a/)
 
 **If this project helps you, show some ❤️ by putting a ⭐ on this project ✌️**
 
