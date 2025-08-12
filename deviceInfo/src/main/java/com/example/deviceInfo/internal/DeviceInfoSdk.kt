@@ -14,6 +14,10 @@ import com.example.deviceInfo.data.repository.HardwareDeviceInfoCollector
 import com.example.deviceInfo.data.repository.NetworkInfoCollector
 import com.example.deviceInfo.data.repository.SystemInfoCollector
 import com.example.deviceInfo.utils.DeviceInfoResult
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.withContext
 
 class DeviceInfoSDK private constructor(private val context: Context) {
 
@@ -54,18 +58,24 @@ class DeviceInfoSDK private constructor(private val context: Context) {
         }
     }
 
-    // Main method to collect all device information
-    suspend fun collectAllInfo(): DeviceInfoReport {
+    suspend fun collectAllInfo(): DeviceInfoReport = withContext(Dispatchers.IO) {
         val results = mutableMapOf<String, DeviceInfoResult<*>>()
 
-        collectors.forEach { (category, collector) ->
-            val result = collectWithCaching(category, collector)
+        // launching all collectors in parallel
+        val deferredResults = collectors.map { (category, collector) ->
+            async {
+                category to collectWithCaching(category, collector)
+            }
+        }
+
+        // waiting for all results and collect them
+        deferredResults.awaitAll().forEach { (category, result) ->
             if (config.includeUnavailableInfo || result is DeviceInfoResult.Success) {
                 results[category] = result
             }
         }
 
-        return DeviceInfoReport(results, System.currentTimeMillis())
+        DeviceInfoReport(results, System.currentTimeMillis())
     }
 
     // Collect specific category of information
