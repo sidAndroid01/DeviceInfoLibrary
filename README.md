@@ -304,7 +304,7 @@ limitations under the License.
 The library is in its nascent stage and is ready to be improved. 
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## Steps 
+#### Steps 
 - Head over to the [gitHub](https://github.com/sidAndroid01/DeviceInfoLibrary)
 - Fork the repository
 - Create your feature branch (git checkout -b feature/deviceInfoAdd)
