@@ -1,0 +1,12 @@
+# jitpack.yml
+jdk:
+  - openjdk17
+
+before_install:
+  - export JAVA_HOME=$JAVA_17_HOME
+
+install:
+  - ./gradlew :deviceInfo:publishToMavenLocal
+
+android:
+  - yes
