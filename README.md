@@ -305,11 +305,12 @@ The library is in its nascent stage and is ready to be improved.
 Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 **Steps -** 
-Fork the repository
-Create your feature branch (git checkout -b feature/deviceInfoAdd)
-Commit your changes (git commit -m 'Add some more device info')
-Push to the branch (git push origin feature/AmazingFeature)
-Open a Pull Request
+- Head over to the [gitHub](https://github.com/sidAndroid01/DeviceInfoLibrary)
+- Fork the repository
+- Create your feature branch (git checkout -b feature/deviceInfoAdd)
+- Commit your changes (git commit -m 'Add some more device info')
+- Push to the branch (git push origin feature/AmazingFeature)
+- Open a Pull Request
 
 ### Contact me -
 [LinkedIn](https://www.linkedin.com/in/siddhant-mishra-95a91820a/)
