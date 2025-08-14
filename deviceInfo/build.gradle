@@ -53,7 +53,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
 
-                groupId = 'com.github.sidAndroid01' // Your GitHub username
+                groupId = 'com.github.sidAndroid01'
                 artifactId = 'device-info-android'
                 version = '1.0.0'
 
